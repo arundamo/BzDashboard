@@ -40,8 +40,8 @@ export async function POST(req: NextRequest) {
 
 // Cron-ready: can be called by an external cron with a secret header
 export async function GET(req: NextRequest) {
-  const cronSecret = req.headers.get("x-cron-secret");
-  if (cronSecret !== process.env.CRON_SECRET) {
+  const cronSecret = process.env.CRON_SECRET;
+  if (!cronSecret || req.headers.get("x-cron-secret") !== cronSecret) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 

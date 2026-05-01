@@ -106,7 +106,7 @@ export async function syncVehicle(vehicleId: string): Promise<void> {
   }
 
   // Update daily trip summary if odometer changed
-  if (odometerData && lastSnapshot?.odometer) {
+  if (odometerData && lastSnapshot?.odometer != null) {
     const distance = odometerData.distance - lastSnapshot.odometer;
     if (distance > 0) {
       const today = new Date();
